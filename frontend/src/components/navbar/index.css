@@ -1,0 +1,12 @@
+.navstyle {
+    background-color: #f5f5f5; 
+}
+
+.textstyle {
+    text-decoration: underline 0.15em !important;
+}
+
+.textstyle:hover {
+    text-decoration: none !important;
+
+}

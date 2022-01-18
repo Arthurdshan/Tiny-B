@@ -1,0 +1,9 @@
+textarea {
+    resize: none;
+    height: 150px;
+}
+
+textarea.form-control:focus, input.form-control:focus {
+    outline: none !important;
+    box-shadow: none;
+}

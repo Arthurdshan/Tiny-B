@@ -23,14 +23,15 @@ const Listing = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get(`${BASE_URL}/topics?size=20&page=${pageNumber}`);
+            const response = await axios.get(`${BASE_URL}/topics`, { params: { size: 12, page: pageNumber } });
             const data = response.data as TopicPage;
             setTopics(data);
+            console.log(data);
         })();
     }, [pageNumber]);
 
     return (
-        <div className="mx-3">
+        <div className="m-3">
             <h5 className="my-3">Latest posts</h5>
             <div>
                 {
@@ -55,6 +56,14 @@ const Listing = () => {
                             </h5>
                         )
                 }
+            </div>
+            <div className="d-flex justify-content-center">
+                <button style={topics.first ? { textDecoration: "none" } : {}} className="mx-2 astext" disabled={topics.first} onClick={() => setPageNumber(pageNumber - 1)}>
+                    Latest
+                </button>
+                <button style={topics.last ? { textDecoration: "none" } : {}} className="mx-2 astext" disabled={topics.last} onClick={() => setPageNumber(pageNumber + 1)}>
+                    Older
+                </button>
             </div>
         </div>
     );

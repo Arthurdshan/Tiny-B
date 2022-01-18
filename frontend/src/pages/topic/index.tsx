@@ -21,7 +21,6 @@ const TopicPage = () => {
     });
 
     const handleTopicSubmit = async (sub: FormEvent<HTMLFormElement>, reply: string) => {
-        // sub.preventDefault();
         try {
             await axios.post(`${BASE_URL}/replies`, {
                 topicId: topic.id,
@@ -77,7 +76,7 @@ const TopicPage = () => {
             </div>
             <div className="border px-2 pt-2">
                 {
-                    topic.replies.length == 0
+                    topic.replies.length === 0
 
                         ?
 

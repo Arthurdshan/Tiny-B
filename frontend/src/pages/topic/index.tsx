@@ -21,6 +21,7 @@ const TopicPage = () => {
     });
 
     const handleTopicSubmit = async (sub: FormEvent<HTMLFormElement>, reply: string) => {
+        sub.preventDefault();
         try {
             await axios.post(`${BASE_URL}/replies`, {
                 topicId: topic.id,
@@ -30,6 +31,7 @@ const TopicPage = () => {
             console.log(e);
             toast.error("An error occured while trying to add a reply");
         }
+        window.location.reload();
     }
 
     useEffect(() => {

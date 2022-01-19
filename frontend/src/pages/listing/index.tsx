@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { TopicPage } from "../../types/topic";
-import axios from "axios";
-import { BASE_URL } from "../../utils/requests";
 import { Link } from "react-router-dom";
-import './index.css'
 import moment from "moment";
+import { API } from "../../utils/requests";
+import './index.css'
 
 const Listing = () => {
 
@@ -23,7 +22,7 @@ const Listing = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get(`${BASE_URL}/topics`, { params: { size: 12, page: pageNumber } });
+            const response = await API.get(`/topics`, { params: { size: 12, page: pageNumber } });
             const data = response.data as TopicPage;
             setTopics(data);
             console.log(data);

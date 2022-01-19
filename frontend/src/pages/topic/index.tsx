@@ -1,10 +1,9 @@
-import axios from "axios";
 import moment from "moment";
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Reply, Topic } from "../../types/topic";
-import { BASE_URL } from "../../utils/requests";
+import { API } from "../../utils/requests";
 import './index.css';
 
 const TopicPage = () => {
@@ -23,7 +22,7 @@ const TopicPage = () => {
     const handleTopicSubmit = async (sub: FormEvent<HTMLFormElement>, reply: string) => {
         sub.preventDefault();
         try {
-            const response = await axios.post<Reply>(`${BASE_URL}/replies`, {
+            const response = await API.post<Reply>(`/replies`, {
                 topicId: topic.id,
                 body: reply
             });
@@ -41,7 +40,7 @@ const TopicPage = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get<Topic>(`${BASE_URL}/topics/${params.id}`);
+            const response = await API.get<Topic>(`/topics/${params.id}`);
             const data = response.data;
             setTopic(data);
         })();

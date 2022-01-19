@@ -1,10 +1,9 @@
 import { FormEvent, useState } from "react";
 import './index.css';
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../utils/requests";
 import { toast } from 'react-toastify';
 import { Topic } from "../../types/topic";
+import { API } from "../../utils/requests";
 
 const NewTopic = () => {
 
@@ -16,12 +15,11 @@ const NewTopic = () => {
     const handleTopicSubmit = async (sub: FormEvent<HTMLFormElement>, topic: string, comment: string) => {
         sub.preventDefault();
         try {
-            const response = await axios.post(`${BASE_URL}/topics`, {
+            const response = await API.post(`/topics`, {
                 title: topic,
                 body: body
             });
             const data = response.data as Topic;
-            // toast.success("Post sucessful!");
             navigate(`/topic/${data.id}`);
         } catch (e) {
             console.log(e);

@@ -26,6 +26,7 @@ const TopicPage = () => {
                 topicId: topic.id,
                 body: reply
             });
+
             const data = response.data;
             topic.replies.push(data);
 
@@ -58,7 +59,7 @@ const TopicPage = () => {
                         required
                         style={{ resize: "none" }}
                         className="form-control"
-                        onChange={e => setReply(e.target.value) }
+                        onChange={e => setReply(e.target.value)}
                         minLength={1}
                         maxLength={10000}
                     />
@@ -69,8 +70,7 @@ const TopicPage = () => {
             </div>
             <div className="border mb-3 p-2">
                 <div className="d-flex border border p-2 mb-3">
-                    <span className="mb-0" style={{ fontWeight: "bold" }}>TOPIC: </span>
-                    <span className="mb-0" style={{ fontWeight: "bold" }}>{topic.title}</span>
+                    <span className="mb-0" style={{ fontWeight: "bold" }}>TOPIC: {topic.title}</span>
                 </div>
                 <div className="border p-2">
                     <div className="d-flex">

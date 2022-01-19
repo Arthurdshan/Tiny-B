@@ -3,7 +3,7 @@ import moment from "moment";
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Topic } from "../../types/topic";
+import { Reply, Topic } from "../../types/topic";
 import { BASE_URL } from "../../utils/requests";
 import './index.css';
 
@@ -23,24 +23,29 @@ const TopicPage = () => {
     const handleTopicSubmit = async (sub: FormEvent<HTMLFormElement>, reply: string) => {
         sub.preventDefault();
         try {
-            await axios.post(`${BASE_URL}/replies`, {
+            const response = await axios.post<Reply>(`${BASE_URL}/replies`, {
                 topicId: topic.id,
                 body: reply
             });
+            const data = response.data;
+            topic.replies.push(data);
+
+            Array.from(document.querySelectorAll("textarea")).forEach(
+                input => (input.value = "")
+            );
         } catch (e) {
             console.log(e);
             toast.error("An error occured while trying to add a reply");
         }
-        window.location.reload();
     }
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get(`${BASE_URL}/topics/${params.id}`);
-            const data = response.data as Topic;
+            const response = await axios.get<Topic>(`${BASE_URL}/topics/${params.id}`);
+            const data = response.data;
             setTopic(data);
         })();
-    }, [params.id]);
+    }, [topic]);
 
     return (
         <div className="m-3">
@@ -50,10 +55,11 @@ const TopicPage = () => {
                         Reply
                     </label>
                     <textarea
+                        id="inputbody"
                         required
                         style={{ resize: "none" }}
                         className="form-control"
-                        onChange={e => setReply(e.target.value)}
+                        onChange={e => setReply(e.target.value) }
                         minLength={1}
                         maxLength={10000}
                     />

@@ -1,6 +1,6 @@
 
 
-export type reply = {
+export type Reply = {
     id: number;
     date: Date;
     body: string;
@@ -11,7 +11,7 @@ export type Topic = {
     date: Date;
     title: string;
     body: string;
-    replies: reply[];
+    replies: Reply[];
 }
 
 export type TopicPage = {
